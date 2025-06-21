@@ -1,0 +1,24 @@
+show command;
+create database;
+rename database;
+drop database.
+####creating a table,rename table,drop table.
+CREATE TABLE student(
+    Id int,
+    Name varchar(15),
+    Gender  varchar(10),
+    Age int,
+    GPA double(3,2),
+    City varchar(15),
+    PRIMARY KEY(Id)
+ );
+#record insert:
+INSERT INTO student
+(Id,Name,Gender,Age,GPA,City)
+VALUES(101,'Hasan','Male',23,3.55,'Noakhali');
+###select command:
+###distinct keyword;
+###limit keyword.
+###sorting
+
+

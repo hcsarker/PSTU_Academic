@@ -1,0 +1,675 @@
+Microsoft Windows [Version 10.0.19045.2604]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Windows\system32>sqlplus
+
+SQL*Plus: Release 10.2.0.1.0 - Production on Sun Feb 26 10:16:32 2023
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+Enter user-name: system
+Enter password:
+
+Connected to:
+Oracle Database 10g Express Edition Release 10.2.0.1.0 - Production
+
+SQL> Disconnected from Oracle Database 10g Express Edition Release 10.2.0.1.0 - Production
+
+C:\Windows\system32>sqlplus
+
+SQL*Plus: Release 10.2.0.1.0 - Production on Sun Feb 26 10:55:51 2023
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+Enter user-name: system
+Enter password:
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+Enter user-name: system
+Enter password:
+
+Connected to:
+Oracle Database 10g Express Edition Release 10.2.0.1.0 - Production
+
+SQL> create table COMFORT (
+  City          VARCHAR2(13) NOT NULL,
+  SampleDate    DATE NOT NULL,
+  Noon          NUMBER(3,1),
+  Midnight      NUMBER(3,1),
+  Precipitation NUMBER
+  );
+
+Table created.
+
+SQL> insert into COMFORT values ('SAN FRANCISCO',
+  2     TO_DATE('21-MAR-2003','DD-MON-YYYY'),62.5,42.3,.5);
+
+1 row created.
+
+SQL> insert into COMFORT values ('SAN FRANCISCO',
+  2     TO_DATE('22-JUN-2003','DD-MON-YYYY'),51.1,71.9,.1);
+
+1 row created.
+
+SQL> insert into COMFORT values ('SAN FRANCISCO',
+  2     TO_DATE('23-SEP-2003','DD-MON-YYYY'),NULL,61.5,.1);
+
+1 row created.
+
+SQL> insert into COMFORT values ('SAN FRANCISCO',
+  2     TO_DATE('22-DEC-2003','DD-MON-YYYY'),52.6,39.8,2.3);
+
+1 row created.
+
+SQL> insert into COMFORT values ('KEENE',
+  2     TO_DATE('21-MAR-2003','DD-MON-YYYY'),39.9,-1.2,4.4);
+
+1 row created.
+
+SQL> insert into COMFORT values ('KEENE',
+  2     TO_DATE('22-JUN-2003','DD-MON-YYYY'),85.1,66.7,1.3);
+
+1 row created.
+
+SQL> insert into COMFORT values ('KEENE',
+  2     TO_DATE('23-SEP-2003','DD-MON-YYYY'),99.8,82.6,NULL);
+
+1 row created.
+
+SQL> insert into COMFORT values ('KEENE',
+  2     TO_DATE('22-DEC-2003','DD-MON-YYYY'),-7.2,-1.2,3.9);
+
+1 row created.
+
+SQL> select * from comfort;
+
+CITY          SAMPLEDAT       NOON   MIDNIGHT PRECIPITATION
+------------- --------- ---------- ---------- -------------
+SAN FRANCISCO 21-MAR-03       62.5       42.3            .5
+SAN FRANCISCO 22-JUN-03       51.1       71.9            .1
+SAN FRANCISCO 23-SEP-03                  61.5            .1
+SAN FRANCISCO 22-DEC-03       52.6       39.8           2.3
+KEENE         21-MAR-03       39.9       -1.2           4.4
+KEENE         22-JUN-03       85.1       66.7           1.3
+KEENE         23-SEP-03       99.8       82.6
+KEENE         22-DEC-03       -7.2       -1.2           3.9
+
+8 rows selected.
+
+SQL> select * from comfort where precipitation is null;
+
+CITY          SAMPLEDAT       NOON   MIDNIGHT PRECIPITATION
+------------- --------- ---------- ---------- -------------
+KEENE         23-SEP-03       99.8       82.6
+
+SQL> select * from newspaper where section in ('A','B','F');
+
+no rows selected
+
+SQL> describe newspaper
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ FEATURE                                   NOT NULL VARCHAR2(15)
+ SECTION                                            CHAR(1)
+ PAGE                                               NUMBER
+
+SQL> select * from newspaper;
+
+no rows selected
+
+SQL> insert into NEWSPAPER values ('National News', 'A', 1);
+
+1 row created.
+
+SQL> insert into NEWSPAPER values ('Sports', 'D', 1);
+
+1 row created.
+
+SQL> insert into NEWSPAPER values ('Editorials', 'A', 12);
+
+1 row created.
+
+SQL> insert into NEWSPAPER values ('Business', 'E', 1);
+
+1 row created.
+
+SQL> insert into NEWSPAPER values ('Weather', 'C', 2);
+
+1 row created.
+
+SQL> insert into NEWSPAPER values ('Television', 'B', 7);
+
+1 row created.
+
+SQL> insert into NEWSPAPER values ('Births', 'F', 7);
+
+1 row created.
+
+SQL> insert into NEWSPAPER values ('Classified', 'F', 8);
+
+1 row created.
+
+SQL> insert into NEWSPAPER values ('Modern Life', 'B', 1);
+
+1 row created.
+
+SQL> insert into NEWSPAPER values ('Comics', 'C', 4);
+
+1 row created.
+
+SQL> insert into NEWSPAPER values ('Movies', 'B', 4);
+
+1 row created.
+
+SQL> insert into NEWSPAPER values ('Bridge', 'B', 2);
+
+1 row created.
+
+SQL> insert into NEWSPAPER values ('Obituaries', 'F', 6);
+
+1 row created.
+
+SQL> insert into NEWSPAPER values ('Doctor Is In', 'F', 6);
+
+1 row created.
+
+SQL> select * from newspaper;
+
+FEATURE         S       PAGE
+--------------- - ----------
+National News   A          1
+Sports          D          1
+Editorials      A         12
+Business        E          1
+Weather         C          2
+Television      B          7
+Births          F          7
+Classified      F          8
+Modern Life     B          1
+Comics          C          4
+Movies          B          4
+
+FEATURE         S       PAGE
+--------------- - ----------
+Bridge          B          2
+Obituaries      F          6
+Doctor Is In    F          6
+
+14 rows selected.
+
+SQL> select * from newspaper where section in ('A','B','F');
+
+FEATURE         S       PAGE
+--------------- - ----------
+National News   A          1
+Editorials      A         12
+Television      B          7
+Births          F          7
+Classified      F          8
+Modern Life     B          1
+Movies          B          4
+Bridge          B          2
+Obituaries      F          6
+Doctor Is In    F          6
+
+10 rows selected.
+
+SQL> select * from newspaper where page between 7 and 10;
+
+FEATURE         S       PAGE
+--------------- - ----------
+Television      B          7
+Births          F          7
+Classified      F          8
+
+SQL> select * from newspaper where section='F' and page>7;
+
+FEATURE         S       PAGE
+--------------- - ----------
+Classified      F          8
+
+SQL> select * from newspaper where section='F' or page>7;
+
+FEATURE         S       PAGE
+--------------- - ----------
+Editorials      A         12
+Births          F          7
+Classified      F          8
+Obituaries      F          6
+Doctor Is In    F          6
+
+SQL> select * from newspaper where section='A' or Section='B' and page>2;
+
+FEATURE         S       PAGE
+--------------- - ----------
+National News   A          1
+Editorials      A         12
+Television      B          7
+Movies          B          4
+
+SQL> select * from newspaper where  page>2 and (section='A' or Section='B');
+
+FEATURE         S       PAGE
+--------------- - ----------
+Editorials      A         12
+Television      B          7
+Movies          B          4
+
+SQL> select feature from newspaper where  section=(select section from newspaper where feature='Doctor Is In');
+
+FEATURE
+---------------
+Births
+Classified
+Obituaries
+Doctor Is In
+
+SQL> select section from newspaper where feature='Doctor Is In';
+
+S
+-
+F
+
+SQL> select * from newspaper where  section=(select section from newspaper where page=1);
+select * from newspaper where  section=(select section from newspaper where page=1)
+                                        *
+ERROR at line 1:
+ORA-01427: single-row subquery returns more than one row
+
+
+SQL> select section from newspaper where page=1;
+
+S
+-
+A
+D
+E
+B
+
+SQL> select * from newspaper where  section<(select section from newspaper where feature='Doctor Is In');
+
+FEATURE         S       PAGE
+--------------- - ----------
+National News   A          1
+Sports          D          1
+Editorials      A         12
+Business        E          1
+Weather         C          2
+Television      B          7
+Modern Life     B          1
+Comics          C          4
+Movies          B          4
+Bridge          B          2
+
+10 rows selected.
+
+SQL> drop table LOCATION;
+drop table LOCATION
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> create table LOCATION (
+  2  City       VARCHAR2(25),
+  3  Country    VARCHAR2(25),
+  4  Continent  VARCHAR2(25),
+  5  Latitude   NUMBER,
+  6  NorthSouth CHAR(1),
+  7  Longitude  NUMBER,
+  8  EastWest   CHAR(1)
+  9  );
+
+Table created.
+
+SQL> insert into LOCATION values (
+  2    'ATHENS','GREECE','EUROPE',37.58,'N',23.43,'E');
+
+1 row created.
+
+SQL> insert into LOCATION values (
+  2    'CHICAGO','UNITED STATES','NORTH AMERICA',41.53,'N',87.38,'W');
+
+1 row created.
+
+SQL> insert into LOCATION values (
+  2    'CONAKRY','GUINEA','AFRICA',9.31,'N',13.43,'W');
+
+1 row created.
+
+SQL> insert into LOCATION values (
+  2    'LIMA','PERU','SOUTH AMERICA',12.03,'S',77.03,'W');
+
+1 row created.
+
+SQL> insert into LOCATION values (
+  2    'MADRAS','INDIA','INDIA',13.05,'N',80.17,'E');
+
+1 row created.
+
+SQL> insert into LOCATION values (
+  2    'MANCHESTER','ENGLAND','EUROPE',53.30,'N',2.15,'W');
+
+1 row created.
+
+SQL> insert into LOCATION values (
+  2    'MOSCOW','RUSSIA','EUROPE',55.45,'N',37.35,'E');
+
+1 row created.
+
+SQL> insert into LOCATION values (
+  2    'PARIS','FRANCE','EUROPE',48.52,'N',2.20,'E');
+
+1 row created.
+
+SQL> insert into LOCATION values (
+  2    'SHENYANG','CHINA','CHINA',41.48,'N',123.27,'E');
+
+1 row created.
+
+SQL> insert into LOCATION values (
+  2    'ROME','ITALY','EUROPE',41.54,'N',12.29,'E');
+
+1 row created.
+
+SQL> insert into LOCATION values (
+  2    'TOKYO','JAPAN','ASIA',35.42,'N',139.46,'E');
+
+1 row created.
+
+SQL> insert into LOCATION values (
+  2    'SYDNEY','AUSTRALIA','AUSTRALIA',33.52,'S',151.13,'E');
+
+1 row created.
+
+SQL> insert into LOCATION values (
+  2    'SPARTA','GREECE','EUROPE',37.05,'N',22.27,'E');
+
+1 row created.
+
+SQL> insert into LOCATION values (
+  2    'MADRID','SPAIN','EUROPE',40.24,'N',3.41,'W');
+
+1 row created.
+
+SQL>
+SQL> select city,country from location;
+
+CITY                      COUNTRY
+------------------------- -------------------------
+ATHENS                    GREECE
+CHICAGO                   UNITED STATES
+CONAKRY                   GUINEA
+LIMA                      PERU
+MADRAS                    INDIA
+MANCHESTER                ENGLAND
+MOSCOW                    RUSSIA
+PARIS                     FRANCE
+SHENYANG                  CHINA
+ROME                      ITALY
+TOKYO                     JAPAN
+
+CITY                      COUNTRY
+------------------------- -------------------------
+SYDNEY                    AUSTRALIA
+SPARTA                    GREECE
+MADRID                    SPAIN
+
+14 rows selected.
+
+SQL> drop table WEATHER;
+drop table WEATHER
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> create table WEATHER (
+  2  City         VARCHAR2(11),
+  3  Temperature  NUMBER,
+  4  Humidity     NUMBER,
+  5  Condition    VARCHAR2(9)
+  6  );
+
+Table created.
+
+SQL> insert into WEATHER values ('LIMA',45,79,'RAIN');
+
+1 row created.
+
+SQL> insert into WEATHER values ('PARIS',81,62,'CLOUDY');
+
+1 row created.
+
+SQL> insert into WEATHER values ('MANCHESTER',66,98,'FOG');
+
+1 row created.
+
+SQL> insert into WEATHER values ('ATHENS',97,89,'SUNNY');
+
+1 row created.
+
+SQL> insert into WEATHER values ('CHICAGO',66,88,'RAIN');
+
+1 row created.
+
+SQL> insert into WEATHER values ('SYDNEY',69,99,'SUNNY');
+
+1 row created.
+
+SQL> insert into WEATHER values ('SPARTA',74,63,'CLOUDY');
+
+1 row created.
+
+SQL> select city,condition from weather;
+
+CITY        CONDITION
+----------- ---------
+LIMA        RAIN
+PARIS       CLOUDY
+MANCHESTER  FOG
+ATHENS      SUNNY
+CHICAGO     RAIN
+SYDNEY      SUNNY
+SPARTA      CLOUDY
+
+7 rows selected.
+
+SQL> select city,country from location where city in (select city from weather where condition='CLOUDY');
+
+CITY                      COUNTRY
+------------------------- -------------------------
+PARIS                     FRANCE
+SPARTA                    GREECE
+
+SQL> select city,condition from weather;
+
+CITY        CONDITION
+----------- ---------
+LIMA        RAIN
+PARIS       CLOUDY
+MANCHESTER  FOG
+ATHENS      SUNNY
+CHICAGO     RAIN
+SYDNEY      SUNNY
+SPARTA      CLOUDY
+
+7 rows selected.
+
+SQL> select * from weather;
+
+CITY        TEMPERATURE   HUMIDITY CONDITION
+----------- ----------- ---------- ---------
+LIMA                 45         79 RAIN
+PARIS                81         62 CLOUDY
+MANCHESTER           66         98 FOG
+ATHENS               97         89 SUNNY
+CHICAGO              66         88 RAIN
+SYDNEY               69         99 SUNNY
+SPARTA               74         63 CLOUDY
+
+7 rows selected.
+
+SQL> select * from LOCATION;
+
+CITY                      COUNTRY                   CONTINENT
+------------------------- ------------------------- -------------------------
+  LATITUDE N  LONGITUDE E
+---------- - ---------- -
+ATHENS                    GREECE                    EUROPE
+     37.58 N      23.43 E
+
+CHICAGO                   UNITED STATES             NORTH AMERICA
+     41.53 N      87.38 W
+
+CONAKRY                   GUINEA                    AFRICA
+      9.31 N      13.43 W
+
+
+CITY                      COUNTRY                   CONTINENT
+------------------------- ------------------------- -------------------------
+  LATITUDE N  LONGITUDE E
+---------- - ---------- -
+LIMA                      PERU                      SOUTH AMERICA
+     12.03 S      77.03 W
+
+MADRAS                    INDIA                     INDIA
+     13.05 N      80.17 E
+
+MANCHESTER                ENGLAND                   EUROPE
+      53.3 N       2.15 W
+
+
+CITY                      COUNTRY                   CONTINENT
+------------------------- ------------------------- -------------------------
+  LATITUDE N  LONGITUDE E
+---------- - ---------- -
+MOSCOW                    RUSSIA                    EUROPE
+     55.45 N      37.35 E
+
+PARIS                     FRANCE                    EUROPE
+     48.52 N        2.2 E
+
+SHENYANG                  CHINA                     CHINA
+     41.48 N     123.27 E
+
+
+CITY                      COUNTRY                   CONTINENT
+------------------------- ------------------------- -------------------------
+  LATITUDE N  LONGITUDE E
+---------- - ---------- -
+ROME                      ITALY                     EUROPE
+     41.54 N      12.29 E
+
+TOKYO                     JAPAN                     ASIA
+     35.42 N     139.46 E
+
+SYDNEY                    AUSTRALIA                 AUSTRALIA
+     33.52 S     151.13 E
+
+
+CITY                      COUNTRY                   CONTINENT
+------------------------- ------------------------- -------------------------
+  LATITUDE N  LONGITUDE E
+---------- - ---------- -
+SPARTA                    GREECE                    EUROPE
+     37.05 N      22.27 E
+
+MADRID                    SPAIN                     EUROPE
+     40.24 N       3.41 W
+
+
+14 rows selected.
+
+SQL> select * from LOCATIOn;
+
+CITY                      COUNTRY                   CONTINENT
+------------------------- ------------------------- -------------------------
+  LATITUDE N  LONGITUDE E
+---------- - ---------- -
+ATHENS                    GREECE                    EUROPE
+     37.58 N      23.43 E
+
+CHICAGO                   UNITED STATES             NORTH AMERICA
+     41.53 N      87.38 W
+
+CONAKRY                   GUINEA                    AFRICA
+      9.31 N      13.43 W
+
+
+CITY                      COUNTRY                   CONTINENT
+------------------------- ------------------------- -------------------------
+  LATITUDE N  LONGITUDE E
+---------- - ---------- -
+LIMA                      PERU                      SOUTH AMERICA
+     12.03 S      77.03 W
+
+MADRAS                    INDIA                     INDIA
+     13.05 N      80.17 E
+
+MANCHESTER                ENGLAND                   EUROPE
+      53.3 N       2.15 W
+
+
+CITY                      COUNTRY                   CONTINENT
+------------------------- ------------------------- -------------------------
+  LATITUDE N  LONGITUDE E
+---------- - ---------- -
+MOSCOW                    RUSSIA                    EUROPE
+     55.45 N      37.35 E
+
+PARIS                     FRANCE                    EUROPE
+     48.52 N        2.2 E
+
+SHENYANG                  CHINA                     CHINA
+     41.48 N     123.27 E
+
+
+CITY                      COUNTRY                   CONTINENT
+------------------------- ------------------------- -------------------------
+  LATITUDE N  LONGITUDE E
+---------- - ---------- -
+ROME                      ITALY                     EUROPE
+     41.54 N      12.29 E
+
+TOKYO                     JAPAN                     ASIA
+     35.42 N     139.46 E
+
+SYDNEY                    AUSTRALIA                 AUSTRALIA
+     33.52 S     151.13 E
+
+
+CITY                      COUNTRY                   CONTINENT
+------------------------- ------------------------- -------------------------
+  LATITUDE N  LONGITUDE E
+---------- - ---------- -
+SPARTA                    GREECE                    EUROPE
+     37.05 N      22.27 E
+
+MADRID                    SPAIN                     EUROPE
+     40.24 N       3.41 W
+
+
+14 rows selected.
+
+SQL> select weather.city,condition,temperature,latitude,northsouth,longitude,eastwest from weather,location where weather.city=location.city;
+
+CITY        CONDITION TEMPERATURE   LATITUDE N  LONGITUDE E
+----------- --------- ----------- ---------- - ---------- -
+ATHENS      SUNNY              97      37.58 N      23.43 E
+CHICAGO     RAIN               66      41.53 N      87.38 W
+LIMA        RAIN               45      12.03 S      77.03 W
+MANCHESTER  FOG                66       53.3 N       2.15 W
+PARIS       CLOUDY             81      48.52 N        2.2 E
+SYDNEY      SUNNY              69      33.52 S     151.13 E
+SPARTA      CLOUDY             74      37.05 N      22.27 E
+
+7 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL>
