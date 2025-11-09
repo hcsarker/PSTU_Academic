@@ -1,0 +1,86 @@
+a) 
+
+Consider givend data:R1 = 500 kbps, R2 = 2 Mbps, and R3 = 1 Mbps
+
+The throughput for the file transfer=min{R1,R2,R3}
+
+                                                =min{500 kbps, 2 Mbps, 1 Mbps}
+
+                                                =500 kbps
+
+So, the throughput for the file transfer=500 kbps
+
+b)
+
+Consider given data:
+
+The file size= 4 million bytes
+
+Convert million bytes to bits=32000000 bits.
+
+ From (a), Throughput for the file transfer=500 Kbps
+ 					   =500000 bps
+
+Dividing the file size by the throughput,roughly how long will it take to transfer the file to Host B:
+
+=file size/hroughput for the file transfer
+
+=32000000 bits/500000 bps
+
+=64 seconds
+
+c) 
+
+Consider the given data:
+
+Repeat (a) and (b), but now with R2 reduced to 100 kbps.
+
+That means R2=100 kbps , R1 = 500 kbps,  and R3 = 1 Mbps
+
+The throughput for the file transfer=min{R1,R2,R3}
+
+                                                  =min{500 kbps, 100 kbps, 1 Mbps}
+
+                                                  =100 kbps
+
+So, the throughput for the file transfer=100 kbps
+
+Dividing the file size by the throughput,roughly how long will it take to transfer the file to Host B:
+
+=file size/hroughput for the file transfer
+
+=32000000 bits/100000 bps
+
+=320 seconds
+
+
+R18.
+Length of packet (L) = 1 thousand bytes
+
+Link distance (d) = 2500km
+
+Speed of propagation (s) = 2.5* 10^8 m/s
+
+Transmission rate (R) = 2 Mbps = 2,000,000 bits/sec
+
+1 byte = 8 bits
+
+Transmission delay = L/R
+
+                                = 8 * 1,000 / 2,000,000 
+
+                                = 4 milliseconds
+
+
+Propagation delay = d/s
+
+                              = 2,500 / 2.5×105
+
+                              = 10 milliseconds
+
+
+Hence, 
+
+Finding total time by adding transmission and propagation delay.
+
+Total time required = 4 + 10  = 14 milliseconds. 
