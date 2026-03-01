@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="" data-theme="dark">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="https://chat.openai.com/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulation Study Steps</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll()
+    </script>
+
+    <style>
+        :root {
+            --tw-prose-code: #111827;
+            --tw-prose-hr: #e5e7eb;
+            --tw-prose-links: #111827;
+            --tw-prose-headings: #111827;
+            --tw-prose-quotes: #111827;
+            --tw-prose-counters: #6b7280;
+            --page-bg: #f7f7f8;
+            --page-text: #374151;
+            --conversation-odd-bg: rgba(247,247,248);
+            --th-boarders: #4b5563;
+            --td-boarders: #374151;
+            --meta-title: #616c77;
+        }
+
+        [data-theme="dark"] {
+            --tw-prose-code: #f9fafb;
+            --tw-prose-hr: #374151;
+            --tw-prose-links: #fff;
+            --tw-prose-headings: #fff;
+            --tw-prose-quotes: #f3f4f6;
+            --tw-prose-counters: #9ca3af;
+            --page-bg: rgba(52,53,65);
+            --page-text: #fff;
+            --conversation-odd-bg: rgb(68,70,84);
+            --meta-title: #959faa;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        ::-webkit-scrollbar {
+            height: 1rem;
+            width: .5rem
+        }
+
+        ::-webkit-scrollbar:horizontal {
+            height: .5rem;
+            width: 1rem
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: transparent;
+            border-radius: 9999px
+        }
+
+        ::-webkit-scrollbar-thumb {
+            --tw-border-opacity: 1;
+            background-color: rgba(217,217,227,.8);
+            border-color: rgba(255,255,255,var(--tw-border-opacity));
+            border-radius: 9999px;
+            border-width: 1px
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            --tw-bg-opacity: 1;
+            background-color: rgba(236,236,241,var(--tw-bg-opacity))
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            --tw-bg-opacity: 1;
+            background-color: rgba(86,88,105,var(--tw-bg-opacity))
+        }
+
+        .dark ::-webkit-scrollbar-thumb:hover {
+            --tw-bg-opacity: 1;
+            background-color: rgba(172,172,190,var(--tw-bg-opacity))
+        }
+
+        @media (min-width: 768px) {
+            .scrollbar-trigger ::-webkit-scrollbar-thumb {
+                visibility:hidden
+            }
+
+            .scrollbar-trigger:hover ::-webkit-scrollbar-thumb {
+                visibility: visible
+            }
+        }
+
+        body {
+            font-family: Söhne,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,Helvetica Neue,Arial,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--page-text);
+            background-color: var(--page-bg);
+            margin: 0;
+            padding: 0;
+        }
+
+        [data-theme="light"] .sun {
+            display: none;
+        }
+
+        [data-theme="dark"] .moon {
+            display: none;
+        }
+
+        .toggle {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+        }
+
+        .metadata_container {
+            display: flex;
+            flex-direction: column;
+            margin-top: 8px;
+            padding-left: 1rem;
+        }
+
+        .metadata_item {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            border-radius: 16px;
+            padding: 4px 0.5rem;
+        }
+
+        .metadata_item:hover {
+            background-color: rgba(0,0,0,.1);
+        }
+
+        .metadata_item > div:first-child {
+            flex: 0 1 100px;
+            color: var(--meta-title);
+        }
+
+        .metadata_item > div:last-child {
+            flex: 1;
+        }
+
+        a {
+            color: var(--tw-prose-links);
+            font-size: 0.8rem;
+            text-decoration-line: underline;
+            text-underline-offset: 2px;
+        }
+
+        .conversation-content > p:first-child,
+        ol:first-child {
+            margin-top: 0;
+        }
+
+        p>code, li>code {
+            color: var(--tw-prose-code);
+            font-weight: 600;
+            font-size: .875em;
+        }
+
+        p>code::before,
+        p>code::after,
+        li>code::before,
+        li>code::after {
+            content: "`";
+        }
+
+        hr {
+            width: 100%;
+            height: 0;
+            border: 1px solid var(--tw-prose-hr);
+            margin-bottom: 1em;
+            margin-top: 1em;
+        }
+
+        pre {
+            color: #ffffff;
+            background-color: #000000;
+            overflow-x: auto;
+            margin: 0 0 1rem 0;
+            border-radius: 0.375rem;
+        }
+
+        pre>code {
+            font-family: Söhne Mono, Monaco, Andale Mono, Ubuntu Mono, monospace !important;
+            font-weight: 400;
+            font-size: .875em;
+            line-height: 1.7142857;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--tw-prose-headings);
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 2.25em;
+            font-weight: 600;
+            line-height: 1.1111111;
+            margin-bottom: 0.8888889em;
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            font-weight: 700;
+            line-height: 1.3333333;
+            margin-bottom: 1em;
+            margin-top: 2em;
+        }
+
+        h3 {
+            font-size: 1.25em;
+            font-weight: 600;
+            line-height: 1.6;
+            margin-bottom: .6em;
+            margin-top: 1.6em;
+        }
+
+        h4 {
+            font-weight: 400;
+            line-height: 1.5;
+            margin-bottom: .5em;
+            margin-top: 1.5em
+        }
+
+        h3,h4 {
+            margin-bottom: .5rem;
+            margin-top: 1rem;
+        }
+
+        h5 {
+            font-weight: 600;
+        }
+
+        blockquote {
+            border-left: 2px solid rgba(142,142,160,1);
+            color: var(--tw-prose-quotes);
+            font-style: italic;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 1rem;
+            margin: 1.6em 0;
+            padding-left: 1em;
+            quotes: "\201C""\201D""\2018""\2019";
+        }
+
+        blockquote p:first-of-type:before {
+            content: open-quote;
+        }
+
+        blockquote p:last-of-type:after {
+            content: close-quote;
+        }
+
+        ol, ul {
+            padding-left: 1.1rem;
+        }
+
+        ::marker {
+            color: var(--tw-prose-counters);
+            font-weight: 400;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 0;
+            table-layout: auto;
+            text-align: left;
+            font-size: .875em;
+            line-height: 1.7142857;
+        }
+
+        table * {
+            box-sizing: border-box;
+            border-width: 0;
+            border-style: solid;
+            border-color: #d9d9e3;
+        }
+
+        table thead {
+            border-bottom-color: var(--th-boarders);
+            border-bottom-width: 1px;
+        }
+
+        table th {
+            background-color: rgba(236,236,241,.2);
+            border-bottom-width: 1px;
+            border-left-width: 1px;
+            border-top-width: 1px;
+            padding: 0.25rem 0.75rem;
+        }
+
+        table th:first-child {
+            border-top-left-radius: 0.375rem;
+        }
+
+        table th:last-child {
+            border-right-width: 1px;
+            border-top-right-radius: 0.375rem;
+        }
+
+        table tbody tr {
+            border-bottom-color: var(--td-boarders);
+            border-bottom-width: 1px;
+        }
+
+        table tbody tr:last-child {
+            border-bottom-width: 0;
+        }
+
+        table tbody tr:last-child td:first-child {
+            border-bottom-left-radius: 0.375rem;
+        }
+
+        table tbody tr:last-child td:last-child {
+            border-bottom-right-radius: 0.375rem;
+        }
+
+        table td {
+            border-bottom-width: 1px;
+            border-left-width: 1px;
+            padding: 0.25rem 0.75rem;
+        }
+
+        table td:last-child {
+            border-right-width: 1px;
+        }
+
+        [type=checkbox], [type=radio] {
+            accent-color: #2563eb;
+        }
+
+        .conversation {
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 1rem;
+        }
+
+        .conversation-header {
+            margin-bottom: 1rem;
+        }
+
+        .conversation-header h1 {
+            margin: 0;
+        }
+
+        .conversation-header h1 a {
+            font-size: 1.5rem;
+        }
+
+        .conversation-header .conversation-export {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .conversation-header p {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .conversation-item {
+            display: flex;
+            position: relative;
+            padding: 1rem;
+            border-left: 1px solid rgba(0,0,0,.1);
+            border-right: 1px solid rgba(0,0,0,.1);
+            border-bottom: 1px solid rgba(0,0,0,.1);
+        }
+
+        .conversation-item:first-of-type {
+            border-top: 1px solid rgba(0,0,0,.1);
+        }
+
+        .conversation-item:nth-child(odd) {
+            background-color: var(--conversation-odd-bg);
+        }
+
+        .author {
+            display: flex;
+            flex: 0 0 30px;
+            justify-content: center;
+            align-items: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 0.125rem;
+            margin-right: 1rem;
+            overflow: hidden;
+        }
+
+        .author svg {
+            color: #fff;
+            width: 22px;
+            height: 22px;
+        }
+
+        .author img {
+            content: url(data:image/png;base64,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);
+            width: 100%;
+            height: 100%;
+        }
+
+        .author.GPT-3 {
+            background-color: rgb(16, 163, 127);
+        }
+
+        .author.GPT-4 {
+            background-color: black;
+        }
+
+        .conversation-content-wrapper {
+            display: flex;
+            position: relative;
+            overflow: hidden;
+            flex: 1 1 auto;
+            flex-direction: column;
+        }
+
+        .conversation-content {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .conversation-content p {
+            white-space: pre-wrap;
+            line-height: 28px;
+        }
+
+        .conversation-content img, .conversation-content video {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 2em;
+            margin-top: 2em;
+        }
+
+        .time {
+            position: absolute;
+            right: 8px;
+            bottom: 0;
+            font-size: 0.8rem;
+            color: #acacbe
+        }
+    </style>
+</head>
+
+<body>
+    <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <symbol id="chatgpt" viewBox="0 0 41 41">
+            <path d="M37.5324 16.8707C37.9808 15.5241 38.1363 14.0974 37.9886 12.6859C37.8409 11.2744 37.3934 9.91076 36.676 8.68622C35.6126 6.83404 33.9882 5.3676 32.0373 4.4985C30.0864 3.62941 27.9098 3.40259 25.8215 3.85078C24.8796 2.7893 23.7219 1.94125 22.4257 1.36341C21.1295 0.785575 19.7249 0.491269 18.3058 0.500197C16.1708 0.495044 14.0893 1.16803 12.3614 2.42214C10.6335 3.67624 9.34853 5.44666 8.6917 7.47815C7.30085 7.76286 5.98686 8.3414 4.8377 9.17505C3.68854 10.0087 2.73073 11.0782 2.02839 12.312C0.956464 14.1591 0.498905 16.2988 0.721698 18.4228C0.944492 20.5467 1.83612 22.5449 3.268 24.1293C2.81966 25.4759 2.66413 26.9026 2.81182 28.3141C2.95951 29.7256 3.40701 31.0892 4.12437 32.3138C5.18791 34.1659 6.8123 35.6322 8.76321 36.5013C10.7141 37.3704 12.8907 37.5973 14.9789 37.1492C15.9208 38.2107 17.0786 39.0587 18.3747 39.6366C19.6709 40.2144 21.0755 40.5087 22.4946 40.4998C24.6307 40.5054 26.7133 39.8321 28.4418 38.5772C30.1704 37.3223 31.4556 35.5506 32.1119 33.5179C33.5027 33.2332 34.8167 32.6547 35.9659 31.821C37.115 30.9874 38.0728 29.9178 38.7752 28.684C39.8458 26.8371 40.3023 24.6979 40.0789 22.5748C39.8556 20.4517 38.9639 18.4544 37.5324 16.8707ZM22.4978 37.8849C20.7443 37.8874 19.0459 37.2733 17.6994 36.1501C17.7601 36.117 17.8666 36.0586 17.936 36.0161L25.9004 31.4156C26.1003 31.3019 26.2663 31.137 26.3813 30.9378C26.4964 30.7386 26.5563 30.5124 26.5549 30.2825V19.0542L29.9213 20.998C29.9389 21.0068 29.9541 21.0198 29.9656 21.0359C29.977 21.052 29.9842 21.0707 29.9867 21.0902V30.3889C29.9842 32.375 29.1946 34.2791 27.7909 35.6841C26.3872 37.0892 24.4838 37.8806 22.4978 37.8849ZM6.39227 31.0064C5.51397 29.4888 5.19742 27.7107 5.49804 25.9832C5.55718 26.0187 5.66048 26.0818 5.73461 26.1244L13.699 30.7248C13.8975 30.8408 14.1233 30.902 14.3532 30.902C14.583 30.902 14.8088 30.8408 15.0073 30.7248L24.731 25.1103V28.9979C24.7321 29.0177 24.7283 29.0376 24.7199 29.0556C24.7115 29.0736 24.6988 29.0893 24.6829 29.1012L16.6317 33.7497C14.9096 34.7416 12.8643 35.0097 10.9447 34.4954C9.02506 33.9811 7.38785 32.7263 6.39227 31.0064ZM4.29707 13.6194C5.17156 12.0998 6.55279 10.9364 8.19885 10.3327C8.19885 10.4013 8.19491 10.5228 8.19491 10.6071V19.808C8.19351 20.0378 8.25334 20.2638 8.36823 20.4629C8.48312 20.6619 8.64893 20.8267 8.84863 20.9404L18.5723 26.5542L15.206 28.4979C15.1894 28.5089 15.1703 28.5155 15.1505 28.5173C15.1307 28.5191 15.1107 28.516 15.0924 28.5082L7.04046 23.8557C5.32135 22.8601 4.06716 21.2235 3.55289 19.3046C3.03862 17.3858 3.30624 15.3413 4.29707 13.6194ZM31.955 20.0556L22.2312 14.4411L25.5976 12.4981C25.6142 12.4872 25.6333 12.4805 25.6531 12.4787C25.6729 12.4769 25.6928 12.4801 25.7111 12.4879L33.7631 17.1364C34.9967 17.849 36.0017 18.8982 36.6606 20.1613C37.3194 21.4244 37.6047 22.849 37.4832 24.2684C37.3617 25.6878 36.8382 27.0432 35.9743 28.1759C35.1103 29.3086 33.9415 30.1717 32.6047 30.6641C32.6047 30.5947 32.6047 30.4733 32.6047 30.3889V21.188C32.6066 20.9586 32.5474 20.7328 32.4332 20.5338C32.319 20.3348 32.154 20.1698 31.955 20.0556ZM35.3055 15.0128C35.2464 14.9765 35.1431 14.9142 35.069 14.8717L27.1045 10.2712C26.906 10.1554 26.6803 10.0943 26.4504 10.0943C26.2206 10.0943 25.9948 10.1554 25.7963 10.2712L16.0726 15.8858V11.9982C16.0715 11.9783 16.0753 11.9585 16.0837 11.9405C16.0921 11.9225 16.1048 11.9068 16.1207 11.8949L24.1719 7.25025C25.4053 6.53903 26.8158 6.19376 28.2383 6.25482C29.6608 6.31589 31.0364 6.78077 32.2044 7.59508C33.3723 8.40939 34.2842 9.53945 34.8334 10.8531C35.3826 12.1667 35.5464 13.6095 35.3055 15.0128ZM14.2424 21.9419L10.8752 19.9981C10.8576 19.9893 10.8423 19.9763 10.8309 19.9602C10.8195 19.9441 10.8122 19.9254 10.8098 19.9058V10.6071C10.8107 9.18295 11.2173 7.78848 11.9819 6.58696C12.7466 5.38544 13.8377 4.42659 15.1275 3.82264C16.4173 3.21869 17.8524 2.99464 19.2649 3.1767C20.6775 3.35876 22.0089 3.93941 23.1034 4.85067C23.0427 4.88379 22.937 4.94215 22.8668 4.98473L14.9024 9.58517C14.7025 9.69878 14.5366 9.86356 14.4215 10.0626C14.3065 10.2616 14.2466 10.4877 14.2479 10.7175L14.2424 21.9419ZM16.071 17.9991L20.4018 15.4978L24.7325 17.9975V22.9985L20.4018 25.4983L16.071 22.9985V17.9991Z" fill="currentColor"></path>
+        </symbol>
+    </svg>
+    <div class="conversation">
+        <div class="conversation-header">
+            <h1>
+                <a href="https://chat.openai.com/c/a26b9433-d7d3-40d0-9082-0df723ce2acc" target="_blank" rel="noopener noreferrer">Simulation Study Steps</a>
+                <button class="toggle">
+                    <svg class="sun" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="moon" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </h1>
+            <div class="conversation-export">
+                <p>Exported by
+                <a href="https://github.com/pionxzh/chatgpt-exporter">ChatGPT Exporter</a>
+                at 2023-06-15T10:00:51.999Z</p>
+            </div>
+            <details>
+    <summary>Metadata</summary>
+    <div class="metadata_container">
+        <div class="metadata_item"><div>title</div><div>Simulation Study Steps</div></div>
+<div class="metadata_item"><div>source</div><div>https://chat.openai.com/c/a26b9433-d7d3-40d0-9082-0df723ce2acc</div></div>
+<div class="metadata_item"><div>date</div><div>2023-06-15</div></div>
+<div class="metadata_item"><div>model</div><div>GTP-3.5</div></div>
+<div class="metadata_item"><div>model_name</div><div>{model_name}</div></div>
+    </div>
+</details>
+        </div>
+
+        
+<div class="conversation-item">
+    <div class="author user">
+        <img alt="You" />
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>Define computer simulation models. Describe the steps in simulation study
+
+
+
+Please write in English language.</p>
+        </div>
+    </div>
+    <div class="time" title="2023-06-15 09:46:21 UTC">03:46 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author GPT-3">
+        <svg width="41" height="41"><use xlink:href="#chatgpt" /></svg>
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>Computer simulation models are mathematical or computational representations of real-world systems, processes, or phenomena. These models aim to mimic the behavior, interactions, and dynamics of the real system in a virtual environment. By simulating the system, researchers and decision-makers can study and analyze its behavior under different scenarios, test hypotheses, make predictions, and optimize performance.</p>
+<p>The steps involved in a simulation study typically include:</p>
+<ol>
+<li>
+<p>Problem Formulation: Clearly define the objectives and scope of the simulation study. Identify the system to be modeled, its boundaries, and the specific questions or problems to be addressed.</p>
+</li>
+<li>
+<p>Model Design: Develop a conceptual model that represents the key components, entities, and relationships of the real system. Define the system's input parameters, decision variables, and output measures of interest. Choose an appropriate modeling approach and select the simulation software or programming language.</p>
+</li>
+<li>
+<p>Data Collection: Gather relevant data about the system, such as historical records, statistical distributions, or expert opinions. The quality and accuracy of the data play a crucial role in the reliability of the simulation results.</p>
+</li>
+<li>
+<p>Model Implementation: Translate the conceptual model into a computational model. Write code or use simulation software to represent the system's behavior and dynamics. Implement algorithms, equations, rules, and logic that govern the interactions and changes within the model.</p>
+</li>
+<li>
+<p>Verification and Validation: Verify the correctness of the model implementation by comparing its output with known analytical solutions or existing data. Validation involves comparing the model's behavior and predictions with real-world observations or experimental data. Adjust the model if discrepancies are found.</p>
+</li>
+<li>
+<p>Experimental Design: Determine the simulation scenarios, input parameter values, and system configurations to be investigated. Choose appropriate sampling techniques and experimental designs to explore the system's behavior under different conditions.</p>
+</li>
+<li>
+<p>Execution: Run the simulation experiments using the selected input parameter values and configurations. Collect the output data, which can include performance measures, statistics, or visualizations.</p>
+</li>
+<li>
+<p>Analysis and Interpretation: Analyze the simulation output to answer the research questions or address the problem at hand. Use statistical techniques, visualization tools, and other methods to interpret the results and draw conclusions. Compare different scenarios, identify trends, and evaluate system performance.</p>
+</li>
+<li>
+<p>Sensitivity Analysis: Conduct sensitivity analyses to determine the impact of parameter variations on the model's output. Identify the most influential factors and understand how changes in input parameters affect the system's behavior and performance.</p>
+</li>
+<li>
+<p>Documentation and Reporting: Document the simulation study, including the model design, assumptions, input data, and results. Prepare a comprehensive report or presentation summarizing the study objectives, methodology, findings, and recommendations.</p>
+</li>
+</ol>
+<p>By following these steps, simulation studies can provide valuable insights into complex systems, support decision-making processes, and help optimize system performance, resource allocation, or policy formulation.</p>
+        </div>
+    </div>
+    <div class="time" title="2023-06-15 09:46:41 UTC">03:46 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author user">
+        <img alt="You" />
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p> Describe the iterative process of verification and validation of simulation models.
+
+Please write in English language.</p>
+        </div>
+    </div>
+    <div class="time" title="2023-06-15 09:47:33 UTC">03:47 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author GPT-3">
+        <svg width="41" height="41"><use xlink:href="#chatgpt" /></svg>
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>The iterative process of verification and validation (V&#x26;V) of simulation models involves a series of steps to ensure the correctness, accuracy, and reliability of the model. It is an ongoing process that continues throughout the development and use of the simulation model. The general steps involved in the V&#x26;V process are as follows:</p>
+<ol>
+<li>
+<p>Verification:
+a. Model Construction: Develop the simulation model based on the conceptual design. Implement the algorithms, equations, rules, and logic that represent the system's behavior.
+b. Code Review: Conduct a thorough review of the simulation code to identify any coding errors, inconsistencies, or bugs. Check for syntax errors, logical flaws, and incorrect calculations.
+c. Documentation Review: Review the model documentation, including the assumptions, equations, and data sources. Ensure that the documentation accurately describes the model's intended behavior and purpose.
+d. Software Testing: Perform various tests to verify the correctness of the simulation model's implementation. Test different input scenarios, edge cases, and extreme values to check if the model produces the expected results.
+e. Model Debugging: Identify and fix any errors or issues found during the verification process. Debug the code and correct any discrepancies between the model's expected behavior and the actual behavior observed during testing.</p>
+</li>
+<li>
+<p>Validation:
+a. Conceptual Validation: Compare the model's conceptual design with the real-world system it represents. Ensure that the model captures the essential characteristics, behaviors, and relationships of the system accurately.
+b. Data Validation: Validate the model's input data by comparing it with real-world data or expert knowledge. Verify the accuracy, consistency, and relevance of the data used in the simulation.
+c. Output Validation: Compare the simulation model's output with empirical data, analytical solutions, or observations from the real system. Assess the degree of agreement between the model's predictions and the actual system behavior.
+d. Sensitivity Analysis: Conduct sensitivity analyses to examine how variations in input parameters or model assumptions affect the model's output. Assess the robustness of the model and determine the sensitivity of the results to changes in key factors.
+e. Model Calibration: If discrepancies are found during validation, refine the model by adjusting its parameters, assumptions, or structure to better align with the real system's behavior. Fine-tune the model until the simulation output matches the observed data within an acceptable margin of error.</p>
+</li>
+<li>
+<p>Iteration:
+The verification and validation process is typically iterative, meaning that steps 1 and 2 are repeated as necessary. The model is refined, errors are corrected, and validation tests are rerun until the simulation model meets the desired level of accuracy and reliability. The iterative process continues as new data becomes available, the system changes, or the model's purpose evolves.</p>
+</li>
+</ol>
+<p>By following this iterative process of verification and validation, simulation models can be continually improved and trusted as reliable tools for decision-making, prediction, and optimization.</p>
+        </div>
+    </div>
+    <div class="time" title="2023-06-15 09:47:50 UTC">03:47 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author user">
+        <img alt="You" />
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>Define the following terminologies: (i) Arrival rate (ii) Service rate
+
+Please write in English language.</p>
+        </div>
+    </div>
+    <div class="time" title="2023-06-15 09:48:29 UTC">03:48 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author GPT-3">
+        <svg width="41" height="41"><use xlink:href="#chatgpt" /></svg>
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>(i) Arrival Rate: In the context of queuing theory or system modeling, the arrival rate refers to the rate at which entities or customers arrive at a system or a particular location within the system. It represents the frequency or intensity of incoming entities over a given time period. The arrival rate is typically measured in terms of entities per unit of time (e.g., customers per hour, requests per minute). It is an essential parameter for analyzing and understanding the behavior of queuing systems, as it affects the system's performance, capacity, and waiting times.</p>
+<p>(ii) Service Rate: The service rate, also known as the processing rate or completion rate, is a measure of how quickly a system or a service provider can process or serve entities or customers. It represents the rate at which entities are processed, served, or completed by the system. The service rate is typically expressed as the number of entities that can be processed per unit of time (e.g., customers served per hour, tasks completed per minute). It plays a crucial role in determining the system's throughput, capacity, and efficiency. In queuing theory, the service rate is often considered alongside the arrival rate to analyze the balance between customer arrivals and service times, which affects the system's queuing behavior and performance.</p>
+        </div>
+    </div>
+    <div class="time" title="2023-06-15 09:48:38 UTC">03:48 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author user">
+        <img alt="You" />
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>Define distributed simulation. Write down the difference between monte-carlo and stochastic simulation in table like format.
+
+Please write in English language.</p>
+        </div>
+    </div>
+    <div class="time" title="2023-06-15 09:49:23 UTC">03:49 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author GPT-3">
+        <svg width="41" height="41"><use xlink:href="#chatgpt" /></svg>
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>Distributed Simulation:
+Distributed simulation refers to the execution of a simulation model on multiple computing resources or nodes, which are interconnected and work collaboratively to simulate a complex system. In distributed simulation, the model's components are distributed across different processors or machines, allowing parallel execution and efficient utilization of computational resources. This approach enables the simulation of large-scale systems that cannot be effectively simulated on a single machine. Communication and synchronization mechanisms are employed to coordinate the interactions between distributed components and ensure consistent simulation results.</p>
+<p>Difference between Monte Carlo and Stochastic Simulation:</p>
+<table>
+<thead>
+<tr>
+<th>Monte Carlo Simulation</th>
+<th>Stochastic Simulation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Monte Carlo simulation is a method of modeling and analysis that utilizes random sampling techniques.</td>
+<td>Stochastic simulation refers to a broad class of simulation techniques that model randomness and uncertainty in a system.</td>
+</tr>
+<tr>
+<td>It is commonly used to estimate the behavior and characteristics of a system by repeatedly sampling from probability distributions.</td>
+<td>It encompasses various simulation methods, including Monte Carlo simulation, to model and analyze systems with random or uncertain elements.</td>
+</tr>
+<tr>
+<td>Monte Carlo simulation generates random input values from specified probability distributions and computes the model's output based on these random inputs. It provides statistical estimates and probability distributions of the system's output.</td>
+<td>Stochastic simulation models explicitly incorporate probabilistic or random elements within the model structure. It simulates the system's behavior over time by considering the randomness and uncertainty in the input parameters, events, or processes.</td>
+</tr>
+<tr>
+<td>Monte Carlo simulation is widely used in finance, engineering, physics, and other fields to evaluate risks, optimize decision-making, and study complex systems.</td>
+<td>Stochastic simulation techniques, such as discrete-event simulation or agent-based modeling, are employed in various domains to capture and analyze the dynamic and probabilistic nature of systems.</td>
+</tr>
+<tr>
+<td>The emphasis is on generating a large number of random samples to estimate the behavior of the system and assess the probability of different outcomes.</td>
+<td>The focus is on modeling the probabilistic behavior of the system explicitly, considering random variables, events, or processes, and capturing the stochastic nature of the system's dynamics.</td>
+</tr>
+</tbody>
+</table>
+        </div>
+    </div>
+    <div class="time" title="2023-06-15 09:50:20 UTC">03:50 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author user">
+        <img alt="You" />
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>
+4(a) What is normally distributed random numbers? Describe the application of normally distributed random numbers. 
+
+Please write in English language.</p>
+        </div>
+    </div>
+    <div class="time" title="2023-06-15 09:50:54 UTC">03:50 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author GPT-3">
+        <svg width="41" height="41"><use xlink:href="#chatgpt" /></svg>
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>Normally distributed random numbers, also known as Gaussian random numbers, are a set of random numbers that follow a normal distribution or Gaussian distribution. In a normal distribution, the values are symmetrically distributed around the mean, and the distribution is characterized by its mean and standard deviation.</p>
+<p>The application of normally distributed random numbers is widespread across various fields, including statistics, finance, engineering, and simulation. Some key applications include:</p>
+<ol>
+<li>
+<p>Statistical Analysis: Normal distribution is fundamental in statistical analysis. Random numbers generated from a normal distribution are used to simulate data for hypothesis testing, confidence intervals, and estimation of population parameters. They are particularly useful in situations where the assumption of normality is appropriate, such as in regression analysis or hypothesis tests like t-tests.</p>
+</li>
+<li>
+<p>Monte Carlo Simulations: Normal distribution is often employed in Monte Carlo simulations, which involve generating random samples to estimate and analyze the behavior of complex systems. Monte Carlo simulations rely on random numbers from a normal distribution to model uncertain variables and input parameters. These simulations help assess risks, predict outcomes, optimize decision-making, and simulate various real-world scenarios.</p>
+</li>
+<li>
+<p>Financial Modeling: In finance, many variables are assumed to follow a normal distribution. Normal random numbers are used to model asset returns, volatility, interest rates, and other financial variables. They are essential in option pricing models (such as the Black-Scholes model), portfolio optimization, risk analysis, and simulating financial scenarios.</p>
+</li>
+<li>
+<p>Quality Control and Process Variation: Normally distributed random numbers play a crucial role in quality control and process variation analysis. They are used to generate random data for process control charts, assess process capability, perform hypothesis testing for mean or variance, and evaluate the performance of manufacturing or production processes.</p>
+</li>
+<li>
+<p>Simulation Studies: In various simulation studies, random numbers from a normal distribution are used to model random factors or errors. These factors can represent measurement errors, environmental variations, or inherent uncertainties in the system being simulated. Normal random numbers enable the simulation of realistic and plausible scenarios, aiding in understanding system behavior, optimizing processes, and making informed decisions.</p>
+</li>
+</ol>
+<p>In summary, normally distributed random numbers have widespread applications in statistical analysis, simulation, finance, and quality control. They provide a powerful tool for modeling uncertainty, generating random data, and analyzing complex systems in diverse fields.</p>
+        </div>
+    </div>
+    <div class="time" title="2023-06-15 09:51:06 UTC">03:51 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author user">
+        <img alt="You" />
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>4(c). Define analog simulation. Describe the simulation of an exterior ballistics with an example.
+
+Please write in English language.</p>
+        </div>
+    </div>
+    <div class="time" title="2023-06-15 09:51:41 UTC">03:51 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author GPT-3">
+        <svg width="41" height="41"><use xlink:href="#chatgpt" /></svg>
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>Analog simulation, also known as physical simulation or hardware simulation, refers to a type of simulation where a physical system is replicated using physical components or devices. In analog simulation, the behavior and dynamics of the real system are simulated by directly emulating the physical processes through electrical, mechanical, or other physical means.</p>
+<p>Simulation of exterior ballistics is an example of analog simulation. Exterior ballistics deals with the study of the motion and behavior of projectiles, such as bullets or artillery shells, in flight. Analog simulation of exterior ballistics involves replicating the forces, trajectories, and interactions experienced by projectiles in a physical system.</p>
+<p>Here's an example of how analog simulation can be applied to simulate the exterior ballistics of a projectile:</p>
+<ol>
+<li>
+<p>Experimental Setup: Construct a physical setup that closely mimics the relevant aspects of the real-world exterior ballistics scenario. This setup typically includes launching mechanisms, measurement devices (e.g., velocity sensors, wind gauges), and targets or impact surfaces.</p>
+</li>
+<li>
+<p>Projectile Launch: Use a controlled launching mechanism to propel the projectile into the simulated environment. The launching mechanism can be a spring-loaded mechanism, compressed air, or any other method that provides controlled acceleration and initial velocity to the projectile.</p>
+</li>
+<li>
+<p>Forces and Trajectories: Consider the various forces acting on the projectile, such as gravity, air resistance (drag), and wind effects. Incorporate mechanisms to replicate these forces in the simulation. For example, wind gauges or fans can be used to introduce wind effects, and physical obstructions can simulate the impact of air resistance.</p>
+</li>
+<li>
+<p>Measurements and Data Collection: Employ sensors and measurement devices to capture relevant data during the simulation. For instance, velocity sensors can measure the projectile's speed at different points in its flight path, and impact surfaces can record the projectile's impact location.</p>
+</li>
+<li>
+<p>Analysis and Interpretation: Analyze the collected data to study the projectile's behavior and performance. Calculate parameters such as trajectory, time of flight, impact location, or energy dissipation. Compare the simulated results with theoretical calculations or empirical data to validate the accuracy and fidelity of the analog simulation.</p>
+</li>
+</ol>
+<p>By using analog simulation techniques, exterior ballistics can be studied in a controlled and replicable manner. The physical simulation allows for a more realistic representation of projectile behavior, accounting for factors such as air resistance, wind effects, and gravity. Analog simulation provides valuable insights into the performance, accuracy, and dynamics of projectiles, aiding in the design of ballistic systems, evaluation of ammunition performance, and optimization of shooting or targeting strategies.</p>
+        </div>
+    </div>
+    <div class="time" title="2023-06-15 09:51:58 UTC">03:51 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author user">
+        <img alt="You" />
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>5(a) What is a stochastic process? Write the probability mass function of Poisson distribution. List several applications of Poisson distribution.
+
+Please write in English language.</p>
+        </div>
+    </div>
+    <div class="time" title="2023-06-15 09:52:14 UTC">03:52 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author GPT-3">
+        <svg width="41" height="41"><use xlink:href="#chatgpt" /></svg>
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>(a) A stochastic process is a mathematical model that represents the evolution of a system over time, where the system's behavior is subject to randomness or uncertainty. It is a collection of random variables indexed by time or another parameter, with each random variable representing the state of the system at a specific point in time. Stochastic processes are widely used in fields such as probability theory, statistics, finance, physics, and engineering to model and analyze dynamic systems that involve randomness or probabilistic behavior.</p>
+<p>(b) The probability mass function (PMF) of the Poisson distribution is given by:</p>
+<p>P(X = k) = (λ^k * e^(-λ)) / k!</p>
+<p>where:</p>
+<ul>
+<li>P(X = k) is the probability that the random variable X takes on the value k.</li>
+<li>λ (lambda) is the average rate or intensity parameter of the Poisson distribution.</li>
+<li>e is the base of the natural logarithm (approximately 2.71828).</li>
+<li>k! represents the factorial of k, which is the product of all positive integers from 1 to k.</li>
+</ul>
+<p>(c) The Poisson distribution finds applications in various fields, including:</p>
+<ol>
+<li>
+<p>Queuing Theory: Poisson distribution is often used to model the arrival of customers, requests, or events in queuing systems. It helps analyze waiting times, queue lengths, and system performance.</p>
+</li>
+<li>
+<p>Reliability Analysis: Poisson distribution is employed to model the occurrence of rare events or failures in systems, such as equipment breakdowns, component failures, or system downtime. It aids in assessing the reliability and availability of systems.</p>
+</li>
+<li>
+<p>Telecommunications: Poisson distribution is utilized to model the arrival of calls or messages in telecommunication networks. It assists in designing and optimizing network capacity, estimating call blocking probabilities, and analyzing traffic patterns.</p>
+</li>
+<li>
+<p>Epidemiology: Poisson distribution is applied in epidemiological studies to model the occurrence of diseases, infections, or events with low probabilities. It aids in understanding disease spread, estimating infection rates, and evaluating the effectiveness of interventions.</p>
+</li>
+<li>
+<p>Environmental Science: Poisson distribution is used to model the occurrence of rare events in environmental studies, such as extreme weather events, natural disasters, or pollutant releases. It helps assess environmental risks and develop mitigation strategies.</p>
+</li>
+<li>
+<p>Financial Markets: Poisson distribution is employed in modeling the occurrence of price changes, trading volumes, or order flows in financial markets. It assists in risk management, option pricing, and analyzing market dynamics.</p>
+</li>
+</ol>
+<p>These are just a few examples of the many applications of the Poisson distribution, demonstrating its versatility in modeling random events with low probabilities or rare occurrences.</p>
+        </div>
+    </div>
+    <div class="time" title="2023-06-15 09:52:30 UTC">03:52 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author user">
+        <img alt="You" />
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>5(b) Write the density function of the normal curve. Generate ten random observations from Normal distribution with a mean 15 and standard deviation 5. in theory with ten random observations
+
+Please write in English language.</p>
+        </div>
+    </div>
+    <div class="time" title="2023-06-15 09:55:05 UTC">03:55 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author GPT-3">
+        <svg width="41" height="41"><use xlink:href="#chatgpt" /></svg>
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>The density function of the normal curve, also known as the probability density function (PDF) of the normal distribution, is given by:</p>
+<p>f(x) = (1 / √(2πσ^2)) * e^(-(x - μ)^2 / (2σ^2))</p>
+<p>where:</p>
+<ul>
+<li>f(x) is the value of the density function at a specific point x.</li>
+<li>μ (mu) is the mean of the normal distribution.</li>
+<li>σ (sigma) is the standard deviation of the normal distribution.</li>
+<li>e is the base of the natural logarithm (approximately 2.71828).</li>
+<li>π (pi) is the mathematical constant pi (approximately 3.14159).</li>
+</ul>
+<p>To generate ten random observations from a normal distribution with a mean of 15 and a standard deviation of 5, we can use a random number generator that follows a normal distribution. Each random observation will be generated independently and will follow the specified mean and standard deviation.</p>
+<p>Here are ten random observations generated from a normal distribution with a mean of 15 and a standard deviation of 5:</p>
+<p>18.264, 14.315, 20.512, 17.812, 12.729, 13.947, 14.859, 13.317, 17.148, 12.981</p>
+<p>Please note that the actual values may vary slightly due to the random nature of the observations.</p>
+        </div>
+    </div>
+    <div class="time" title="2023-06-15 09:55:15 UTC">03:55 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author user">
+        <img alt="You" />
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>6(a) How to address the COVID-19 scenario using Exponential distribution. Illustrate the Exponential curves on the following scenarios: (i) Exponential growth and Exponential decay.
+(ii) Infection begins to taper off when herd immunity is reached.
+(iii) Confirmed cases will rise again if restrictions are lifted too soon. 
+
+6(b) What is the application of SIR model? Illustrate and state the general SIR schematic. Show and explain the maximum number of infected, Imax and solution curves.
+
+Please write in English language.</p>
+        </div>
+    </div>
+    <div class="time" title="2023-06-15 09:55:43 UTC">03:55 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author GPT-3">
+        <svg width="41" height="41"><use xlink:href="#chatgpt" /></svg>
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>6(a) Addressing the COVID-19 Scenario using Exponential Distribution:</p>
+<p>The Exponential distribution can be applied to model the spread and progression of infectious diseases like COVID-19. It assumes a constant rate of exponential growth or decay, making it useful for understanding the initial rapid growth, tapering off of cases, and potential resurgence when restrictions are lifted prematurely.</p>
+<p>(i) Exponential Growth and Exponential Decay:
+In the context of COVID-19, during the initial phase of the outbreak, the number of confirmed cases typically exhibits exponential growth. This means that the number of cases increases at an accelerating rate over time. The exponential growth curve can be illustrated by plotting the number of cases against time, where the curve starts with a steep slope and becomes steeper as time progresses.</p>
+<p>Conversely, when measures such as vaccinations, social distancing, or lockdowns are implemented, the number of cases may start to decrease exponentially, indicating exponential decay. The exponential decay curve shows a decreasing trend, with the number of cases declining rapidly at first and gradually leveling off over time.</p>
+<p>(ii) Herd Immunity and Tapering Off:
+Herd immunity refers to a situation where a significant portion of the population becomes immune to a disease, either through previous infection or vaccination. When herd immunity is reached, the spread of the disease begins to taper off as the number of susceptible individuals decreases. This can be illustrated by a decrease in the rate of new infections and a flattening of the exponential growth curve.</p>
+<p>(iii) Resurgence with Lifted Restrictions:
+If restrictions, such as social distancing measures or lockdowns, are lifted prematurely or without adequate precautions, there is a risk of a resurgence in cases. This can be depicted by an upward trend in the number of cases on the exponential growth curve after a period of decline. The rate of increase may vary based on factors like population density, vaccination rates, and effectiveness of preventive measures.</p>
+<p>6(b) Application of SIR Model:</p>
+<p>The SIR model is a widely used mathematical model to study and analyze the spread of infectious diseases. It divides the population into three compartments: Susceptible (S), Infected (I), and Recovered (R). The model tracks the flow of individuals between these compartments based on specific parameters.</p>
+<p>Schematic of the SIR Model:</p>
+<ul>
+<li>Susceptible (S): Represents individuals who are susceptible to the disease and can become infected.</li>
+<li>Infected (I): Represents individuals who are currently infected and can transmit the disease to susceptible individuals.</li>
+<li>Recovered (R): Represents individuals who have recovered from the infection and are no longer susceptible or infectious.</li>
+</ul>
+<p>The general dynamics of the SIR model can be described by the following set of differential equations:</p>
+<p>dS/dt = -β * S * I
+dI/dt = β * S * I - γ * I
+dR/dt = γ * I</p>
+<p>where:</p>
+<ul>
+<li>β (beta): Represents the transmission rate, indicating the probability of disease transmission from an infected to a susceptible individual.</li>
+<li>γ (gamma): Represents the recovery rate, indicating the rate at which infected individuals recover and move to the recovered compartment.</li>
+</ul>
+<p>Maximum Number of Infected (Imax) and Solution Curves:
+The maximum number of infected individuals (Imax) in the SIR model depends on the initial conditions, parameters β and γ, and the characteristics of the disease. The value of Imax occurs when the rate of new infections (dI/dt) reaches zero.</p>
+<p>Solution curves depict the dynamics of susceptible, infected, and recovered populations over time. Initially, the infected population (I) increases, while the susceptible population (S) decreases. As the infected individuals recover and move to the recovered compartment (R), the number of infected individuals decreases, and the recovered population increases.</p>
+<p>The shape and duration of the solution curves depend on the values of β and γ. The interplay between these parameters determines the rate of disease spread, the peak of infected cases, and the eventual decline in the number of cases as the susceptible population decreases or individuals recover from the infection.</p>
+<p>It's important to note that the SIR model represents a simplified approximation of disease dynamics and may require additional factors or modifications to accurately capture the complexities of specific diseases like COVID-19.</p>
+        </div>
+    </div>
+    <div class="time" title="2023-06-15 09:56:05 UTC">03:56 PM</div>
+</div>
+    </div>
+
+
+    <script>
+        function toggleDarkMode(mode) {
+            const html = document.querySelector('html')
+            const isDarkMode = html.getAttribute('data-theme') === 'dark'
+            const newMode = mode || (isDarkMode ? 'light' : 'dark')
+            if (newMode !== 'dark' && newMode !== 'light') return
+            html.setAttribute('data-theme', newMode)
+
+            const url = new URL(window.location)
+            url.searchParams.set('theme', newMode)
+            window.history.replaceState({}, '', url)
+        }
+
+        // Support for ?theme=dark
+        const urlParams = new URLSearchParams(window.location.search)
+        const theme = urlParams.get('theme')
+        if (theme) toggleDarkMode(theme)
+
+        document.querySelector('.toggle').addEventListener('click', () => toggleDarkMode())
+    </script>
+</body>
+
+</html>
