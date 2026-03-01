@@ -2,3 +2,6 @@
 1st Semester/C Programing/*.exe
 1st Semester/C Programing/*.o
 1st Semester/C Programing/*.class
+
+# Ignore log files
+*.log
