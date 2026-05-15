@@ -1,7 +1,7 @@
 # Simulation Model Verification
 
+## Questions
 
-## Questions:
 1. Define verification, validation, and credibility in simulation model. Illustrate the timing
 relationship of validation, verification, and establishing credibility. (05) [2020-21 Final]
 2. Describe the eight methods for debugging a simulation model’s computer program. (04) [2020-21
@@ -14,10 +14,10 @@ credibility. Derive the mathematical formulation… (06) [2019-20 Final]
 5. Explain the inspection approach of statistical procedure for comparing real-world observation and
 simulation output data. (03) [2019-20 Final]
 
-
 # ✅ 1. Verification, Validation, and Credibility (Definition)
 
 ### 🔹 Verification (যাচাই)
+
 **English:**  
 Verification ensures that the **simulation model is correctly implemented** according to the conceptual model.  
 👉 “Are we building the model right?”
@@ -29,6 +29,7 @@ Verification মানে হচ্ছে কোড/মডেল ঠিকভা
 ---
 
 ### 🔹 Validation (প্রমাণীকরণ)
+
 **English:**  
 Validation checks whether the **model represents the real-world system accurately**.  
 👉 “Are we building the right model?”
@@ -40,6 +41,7 @@ Validation মানে মডেলটি বাস্তব সিস্টে
 ---
 
 ### 🔹 Credibility (বিশ্বাসযোগ্যতা)
+
 **English:**  
 Credibility is the **confidence users have** in the model and its results.
 
@@ -50,21 +52,24 @@ Credibility মানে ব্যবহারকারীর কাছে ম�
 
 # ⏱️ Timing Relationship (Important Diagram Explanation)
 
-### Flow:
+### Flow
 
 ```
 Problem → Conceptual Model → Computer Model → Experimentation → Decision
             ↑ Verification        ↑ Validation
                            → Credibility (throughout)
 ```
+
 ![alt text](image.png)
 
-### Explanation:
+### Explanation
+
 - **Verification:** Happens during coding phase  
 - **Validation:** Happens after model produces results  
 - **Credibility:** Built throughout the entire process  
 
 **Bangla:**
+
 - Verification → প্রোগ্রাম বানানোর সময়  
 - Validation → ফলাফল পাওয়ার পর  
 - Credibility → পুরো প্রক্রিয়া জুড়ে তৈরি হয়  
@@ -73,7 +78,7 @@ Problem → Conceptual Model → Computer Model → Experimentation → Decision
 
 # ✅ 2. Eight Methods for Debugging Simulation Program
 
-### 🔧 Methods:
+### 🔧 Methods
 
 1. **Desk Checking**  
    → Manually checking code line by line  
@@ -103,23 +108,27 @@ Problem → Conceptual Model → Computer Model → Experimentation → Decision
 
 ---
 
+
 # ✅ 3. Iterative Process of Verification & Validation
 
-### 🔄 Process:
+### 🔄 Process
 
 ```
 Build Model → Verify → Validate → Modify → Repeat
 ```
-### Process Description:
+
+### Process Description
+
 - First, a model is developed
 - Then it is verified to check correctness
 - After that, validation is done using real-world data
 - If errors or mismatches are found, the model is modified
-- This cycle continues until satisfactory results are obtained 
+- This cycle continues until satisfactory results are obtained
 - Conclusion:
 This iterative loop ensures continuous improvement of the model.
 
-### Explanation:
+### Explanation
+
 - First model তৈরি করা হয়  
 - তারপর verification  
 - তারপর validation  
@@ -135,7 +144,7 @@ This iterative loop ensures continuous improvement of the model.
 
 When deciding whether a model is acceptable:
 
-### Key Issues:
+### Key Issues
 
 1. **Model Accuracy (সঠিকতা)**  
 2. **Data Quality (ডাটার মান)**  
@@ -145,13 +154,15 @@ When deciding whether a model is acceptable:
 6. **Documentation (ডকুমেন্টেশন আছে কিনা)**  
 
 ---
-## Mathematical Formulation of Validation vs. Output Analysis:
+
+## Mathematical Formulation of Validation vs. Output Analysis
+
 The error in a simulation estimate $\hat{m}_M$ of a system mean $\mu_S$ can be expressed as:
   $$\text{Error in } \hat{m}_M = |\hat{m}_M - \mu_S|$$ Using the triangle inequality:$$|\hat{m}_M - \mu_S| = |(\hat{m}_M - \mu_M) + (\mu_M - \mu_S)| \leq |\hat{m}_M - \mu_M| + |\mu_M - \mu_S|$$Output Analysis is concerned with making the first term ($|\hat{m}_M - \mu_M|$) small (statistical precision).  Validation is concerned with making the second term ($|\mu_M - \mu_S|$) small (model accuracy).  
 
 # ✅ 5. Inspection Approach (Statistical Comparison)
 
-### 🔍 Idea:
+### 🔍 Idea
 
 The inspection approach is used to compare **simulation output with real system data**.
 
@@ -171,8 +182,8 @@ The inspection approach is used to compare **simulation output with real system 
 
 If simulation output closely matches real data, the model is considered valid.
 
+### Example
 
-### Example:
 - Real system avg waiting time = 10 min  
 - Simulation output = 9.8 min  
 👉 Very close → Model valid
