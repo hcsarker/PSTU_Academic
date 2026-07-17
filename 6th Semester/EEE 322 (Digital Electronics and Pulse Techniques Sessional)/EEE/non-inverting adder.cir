@@ -1,0 +1,23 @@
+* C:\Users\hrido\OneDrive\Desktop\EEE\non-inverting adder.sch
+
+* Schematics Version 9.1 - Web Update 1
+* Thu Apr 16 00:17:06 2026
+
+
+
+** Analysis setup **
+.tran 0ns 2.5s
+.OP 
+
+
+* From [PSPICE NETLIST] section of pspiceev.ini:
+.lib "nom.lib"
+
+.INC "non-inverting adder.net"
+.INC "non-inverting adder.als"
+
+
+.probe
+
+
+.END

@@ -1,0 +1,23 @@
+* C:\Users\hrido\OneDrive\Desktop\EEE\clipper series.sch
+
+* Schematics Version 9.1 - Web Update 1
+* Thu Apr 16 01:45:53 2026
+
+
+
+** Analysis setup **
+.tran 0ns 2s
+.OP 
+
+
+* From [PSPICE NETLIST] section of pspiceev.ini:
+.lib "nom.lib"
+
+.INC "clipper series.net"
+.INC "clipper series.als"
+
+
+.probe
+
+
+.END

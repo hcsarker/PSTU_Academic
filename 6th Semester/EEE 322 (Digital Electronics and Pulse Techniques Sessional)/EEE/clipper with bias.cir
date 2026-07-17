@@ -1,0 +1,23 @@
+* C:\Users\hrido\OneDrive\Desktop\EEE\clipper with bias.sch
+
+* Schematics Version 9.1 - Web Update 1
+* Thu Apr 16 02:15:17 2026
+
+
+
+** Analysis setup **
+.tran 0ns 2s
+.OP 
+
+
+* From [PSPICE NETLIST] section of pspiceev.ini:
+.lib "nom.lib"
+
+.INC "clipper with bias.net"
+.INC "clipper with bias.als"
+
+
+.probe
+
+
+.END

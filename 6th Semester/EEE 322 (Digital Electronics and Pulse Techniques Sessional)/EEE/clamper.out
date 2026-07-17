@@ -1,0 +1,182 @@
+
+**** 06/10/26 18:46:55 *********** Evaluation PSpice (Nov 1999) **************
+
+ * C:\Users\hrido\OneDrive\Desktop\EEE\clamper.sch
+
+
+ ****     CIRCUIT DESCRIPTION
+
+
+******************************************************************************
+
+
+
+
+* Schematics Version 9.1 - Web Update 1
+* Thu Apr 16 02:45:50 2026
+
+
+
+** Analysis setup **
+.tran 0ns 2s
+.OP 
+
+
+* From [PSPICE NETLIST] section of pspiceev.ini:
+.lib "nom.lib"
+
+.INC "clamper.net"
+
+**** INCLUDING clamper.net ****
+* Schematics Netlist *
+
+
+
+R_R1         0 $N_0001  1k  
+C_C1         $N_0002 $N_0001  1m  
+V_V1         $N_0002 0  
++SIN 0 10 2 0 0 0
+D_D2         $N_0003 $N_0001 D1N4148 
+V_V2         $N_0003 0 4v
+
+**** RESUMING clamper.cir ****
+.INC "clamper.als"
+
+
+
+**** INCLUDING clamper.als ****
+* Schematics Aliases *
+
+.ALIASES
+R_R1            R1(1=0 2=$N_0001 )
+C_C1            C1(1=$N_0002 2=$N_0001 )
+V_V1            V1(+=$N_0002 -=0 )
+D_D2            D2(1=$N_0003 2=$N_0001 )
+V_V2            V2(+=$N_0003 -=0 )
+.ENDALIASES
+
+
+**** RESUMING clamper.cir ****
+.probe
+
+
+.END
+
+**** 06/10/26 18:46:55 *********** Evaluation PSpice (Nov 1999) **************
+
+ * C:\Users\hrido\OneDrive\Desktop\EEE\clamper.sch
+
+
+ ****     Diode MODEL PARAMETERS
+
+
+******************************************************************************
+
+
+
+
+               D1N4148         
+          IS    2.682000E-09 
+           N    1.836        
+         ISR    1.565000E-09 
+         IKF     .04417      
+          BV  100            
+         IBV  100.000000E-06 
+          RS     .5664       
+          TT   11.540000E-09 
+         CJO    4.000000E-12 
+          VJ     .5          
+           M     .3333       
+
+
+**** 06/10/26 18:46:55 *********** Evaluation PSpice (Nov 1999) **************
+
+ * C:\Users\hrido\OneDrive\Desktop\EEE\clamper.sch
+
+
+ ****     SMALL SIGNAL BIAS SOLUTION       TEMPERATURE =   27.000 DEG C
+
+
+******************************************************************************
+
+
+
+ NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
+
+
+($N_0001)    3.3360                   ($N_0002)    0.0000                       
+
+($N_0003)    4.0000                   
+
+
+
+
+    VOLTAGE SOURCE CURRENTS
+    NAME         CURRENT
+
+    V_V1         0.000E+00
+    V_V2        -3.336E-03
+
+    TOTAL POWER DISSIPATION   1.33E-02  WATTS
+
+
+**** 06/10/26 18:46:55 *********** Evaluation PSpice (Nov 1999) **************
+
+ * C:\Users\hrido\OneDrive\Desktop\EEE\clamper.sch
+
+
+ ****     OPERATING POINT INFORMATION      TEMPERATURE =   27.000 DEG C
+
+
+******************************************************************************
+
+
+
+
+
+
+**** DIODES
+
+
+NAME         D_D2      
+MODEL        D1N4148   
+ID           3.34E-03 
+VD           6.64E-01 
+REQ          1.46E+01 
+CAP          7.97E-10 
+**** 06/10/26 18:46:55 *********** Evaluation PSpice (Nov 1999) **************
+
+ * C:\Users\hrido\OneDrive\Desktop\EEE\clamper.sch
+
+
+ ****     INITIAL TRANSIENT SOLUTION       TEMPERATURE =   27.000 DEG C
+
+
+******************************************************************************
+
+
+
+ NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
+
+
+($N_0001)    3.3360                   ($N_0002)    0.0000                       
+
+($N_0003)    4.0000                   
+
+
+
+
+    VOLTAGE SOURCE CURRENTS
+    NAME         CURRENT
+
+    V_V1         0.000E+00
+    V_V2        -3.336E-03
+
+    TOTAL POWER DISSIPATION   1.33E-02  WATTS
+
+
+
+          JOB CONCLUDED
+
+          TOTAL JOB TIME             .02
+

@@ -1,0 +1,172 @@
+
+**** 04/16/26 02:20:05 *********** Evaluation PSpice (Nov 1999) **************
+
+ * C:\Users\hrido\OneDrive\Desktop\EEE\clipper  shunt.sch
+
+
+ ****     CIRCUIT DESCRIPTION
+
+
+******************************************************************************
+
+
+
+
+* Schematics Version 9.1 - Web Update 1
+* Thu Apr 16 02:20:01 2026
+
+
+
+** Analysis setup **
+.tran 0ns 2s
+.OP 
+
+
+* From [PSPICE NETLIST] section of pspiceev.ini:
+.lib "nom.lib"
+
+.INC "clipper  shunt.net"
+
+**** INCLUDING "clipper  shunt.net" ****
+* Schematics Netlist *
+
+
+
+V_V1         $N_0001 0  
++SIN 0 10 4 0 0 0
+R_R4         $N_0001 $N_0002  1k  
+D_D4         0 $N_0002 D1N4148 3
+
+**** RESUMING "clipper  shunt.cir" ****
+.INC "clipper  shunt.als"
+
+
+
+**** INCLUDING "clipper  shunt.als" ****
+* Schematics Aliases *
+
+.ALIASES
+V_V1            V1(+=$N_0001 -=0 )
+R_R4            R4(1=$N_0001 2=$N_0002 )
+D_D4            D4(1=0 2=$N_0002 )
+.ENDALIASES
+
+
+**** RESUMING "clipper  shunt.cir" ****
+.probe
+
+
+.END
+
+**** 04/16/26 02:20:05 *********** Evaluation PSpice (Nov 1999) **************
+
+ * C:\Users\hrido\OneDrive\Desktop\EEE\clipper  shunt.sch
+
+
+ ****     Diode MODEL PARAMETERS
+
+
+******************************************************************************
+
+
+
+
+               D1N4148         
+          IS    2.682000E-09 
+           N    1.836        
+         ISR    1.565000E-09 
+         IKF     .04417      
+          BV  100            
+         IBV  100.000000E-06 
+          RS     .5664       
+          TT   11.540000E-09 
+         CJO    4.000000E-12 
+          VJ     .5          
+           M     .3333       
+
+
+**** 04/16/26 02:20:05 *********** Evaluation PSpice (Nov 1999) **************
+
+ * C:\Users\hrido\OneDrive\Desktop\EEE\clipper  shunt.sch
+
+
+ ****     SMALL SIGNAL BIAS SOLUTION       TEMPERATURE =   27.000 DEG C
+
+
+******************************************************************************
+
+
+
+ NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
+
+
+($N_0001)    0.0000                   ($N_0002)-252.4E-24                   
+
+
+
+
+    VOLTAGE SOURCE CURRENTS
+    NAME         CURRENT
+
+    V_V1        -2.524E-25
+
+    TOTAL POWER DISSIPATION   0.00E+00  WATTS
+
+
+**** 04/16/26 02:20:05 *********** Evaluation PSpice (Nov 1999) **************
+
+ * C:\Users\hrido\OneDrive\Desktop\EEE\clipper  shunt.sch
+
+
+ ****     OPERATING POINT INFORMATION      TEMPERATURE =   27.000 DEG C
+
+
+******************************************************************************
+
+
+
+
+
+
+**** DIODES
+
+
+NAME         D_D4      
+MODEL        D1N4148   
+ID           0.00E+00 
+VD           2.52E-22 
+REQ          3.84E+06 
+CAP          1.20E-11 
+**** 04/16/26 02:20:05 *********** Evaluation PSpice (Nov 1999) **************
+
+ * C:\Users\hrido\OneDrive\Desktop\EEE\clipper  shunt.sch
+
+
+ ****     INITIAL TRANSIENT SOLUTION       TEMPERATURE =   27.000 DEG C
+
+
+******************************************************************************
+
+
+
+ NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
+
+
+($N_0001)    0.0000                   ($N_0002)-252.4E-24                   
+
+
+
+
+    VOLTAGE SOURCE CURRENTS
+    NAME         CURRENT
+
+    V_V1        -2.524E-25
+
+    TOTAL POWER DISSIPATION   0.00E+00  WATTS
+
+
+
+          JOB CONCLUDED
+
+          TOTAL JOB TIME            0.00
+

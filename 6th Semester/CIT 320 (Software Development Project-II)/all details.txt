@@ -1,0 +1,21 @@
+
+
+live hosting link: https://www.proshnobank.app/
+
+user login info >>>
+
+mail: hridoy.pstu.cse19@gmail.com
+pass: 123456
+
+
+admin login info  >>>
+
+link: https://www.proshnobank.app/admin/login
+mail: info.proshnobank@gmail.com
+pass: 123456
+
+Teacher login >>>
+
+link: https://www.proshnobank.app/teacher-login
+mail: hcsarker2002@gmail.com
+pass: 123456

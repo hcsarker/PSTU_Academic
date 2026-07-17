@@ -1,0 +1,24 @@
+* C:\Users\hrido\OneDrive\Desktop\EEE\lowpassfilter.sch
+
+* Schematics Version 9.1 - Web Update 1
+* Thu Jun 11 03:01:00 2026
+
+
+
+** Analysis setup **
+.ac DEC 101 10 100K
+.tran 0ns 2ns
+.OP 
+
+
+* From [PSPICE NETLIST] section of pspiceev.ini:
+.lib "nom.lib"
+
+.INC "lowpassfilter.net"
+.INC "lowpassfilter.als"
+
+
+.probe
+
+
+.END

@@ -1,0 +1,23 @@
+* C:\Users\hrido\OneDrive\Desktop\EEE\opamp-integrator.sch
+
+* Schematics Version 9.1 - Web Update 1
+* Thu Apr 16 11:02:54 2026
+
+
+
+** Analysis setup **
+.tran 0ns 2.5s
+.OP 
+
+
+* From [PSPICE NETLIST] section of pspiceev.ini:
+.lib "nom.lib"
+
+.INC "opamp-integrator.net"
+.INC "opamp-integrator.als"
+
+
+.probe
+
+
+.END

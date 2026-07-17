@@ -1,0 +1,155 @@
+
+**** 04/16/26 02:00:02 *********** Evaluation PSpice (Nov 1999) **************
+
+ * C:\Users\hrido\OneDrive\Desktop\EEE\inverting adder.sch
+
+
+ ****     CIRCUIT DESCRIPTION
+
+
+******************************************************************************
+
+
+
+
+* Schematics Version 9.1 - Web Update 1
+* Thu Apr 16 00:27:18 2026
+
+
+
+** Analysis setup **
+.tran 0ns 2.5s
+.OP 
+
+
+* From [PSPICE NETLIST] section of pspiceev.ini:
+.lib "nom.lib"
+
+.INC "inverting adder.net"
+
+**** INCLUDING "inverting adder.net" ****
+* Schematics Netlist *
+
+
+
+R_R3         $N_0002 $N_0001  1k  
+E_U1         $N_0001 0 VALUE {LIMIT(V(0,$N_0002)*1E6,-15V,+15V)}
+R_R2         $N_0003 $N_0002  1k  
+V_V3         0 $N_0003  
++SIN 0 10 4 0 0 0
+R_R1         $N_0004 $N_0002  1k  
+V_V4         0 $N_0004  
++SIN 0 5 4 0 0 0
+
+**** RESUMING "inverting adder.cir" ****
+.INC "inverting adder.als"
+
+
+
+**** INCLUDING "inverting adder.als" ****
+* Schematics Aliases *
+
+.ALIASES
+R_R3            R3(1=$N_0002 2=$N_0001 )
+E_U1            U1(OUT=$N_0001 +=0 -=$N_0002 )
+R_R2            R2(1=$N_0003 2=$N_0002 )
+V_V3            V3(+=0 -=$N_0003 )
+R_R1            R1(1=$N_0004 2=$N_0002 )
+V_V4            V4(+=0 -=$N_0004 )
+.ENDALIASES
+
+
+**** RESUMING "inverting adder.cir" ****
+.probe
+
+
+.END
+
+**** 04/16/26 02:00:02 *********** Evaluation PSpice (Nov 1999) **************
+
+ * C:\Users\hrido\OneDrive\Desktop\EEE\inverting adder.sch
+
+
+ ****     SMALL SIGNAL BIAS SOLUTION       TEMPERATURE =   27.000 DEG C
+
+
+******************************************************************************
+
+
+
+ NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
+
+
+($N_0001)    0.0000                   ($N_0002)    0.0000                       
+
+($N_0003)    0.0000                   ($N_0004)    0.0000                   
+
+
+
+
+    VOLTAGE SOURCE CURRENTS
+    NAME         CURRENT
+
+    V_V3         0.000E+00
+    V_V4         0.000E+00
+
+    TOTAL POWER DISSIPATION   0.00E+00  WATTS
+
+
+**** 04/16/26 02:00:02 *********** Evaluation PSpice (Nov 1999) **************
+
+ * C:\Users\hrido\OneDrive\Desktop\EEE\inverting adder.sch
+
+
+ ****     OPERATING POINT INFORMATION      TEMPERATURE =   27.000 DEG C
+
+
+******************************************************************************
+
+
+
+
+
+
+**** VOLTAGE-CONTROLLED VOLTAGE SOURCES
+
+
+NAME         E_U1      
+V-SOURCE     0.000E+00
+I-SOURCE     0.000E+00
+**** 04/16/26 02:00:02 *********** Evaluation PSpice (Nov 1999) **************
+
+ * C:\Users\hrido\OneDrive\Desktop\EEE\inverting adder.sch
+
+
+ ****     INITIAL TRANSIENT SOLUTION       TEMPERATURE =   27.000 DEG C
+
+
+******************************************************************************
+
+
+
+ NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
+
+
+($N_0001)    0.0000                   ($N_0002)    0.0000                       
+
+($N_0003)    0.0000                   ($N_0004)    0.0000                   
+
+
+
+
+    VOLTAGE SOURCE CURRENTS
+    NAME         CURRENT
+
+    V_V3         0.000E+00
+    V_V4         0.000E+00
+
+    TOTAL POWER DISSIPATION   0.00E+00  WATTS
+
+
+
+          JOB CONCLUDED
+
+          TOTAL JOB TIME             .02
+

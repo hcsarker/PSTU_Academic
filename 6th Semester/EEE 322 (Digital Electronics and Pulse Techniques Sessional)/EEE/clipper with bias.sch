@@ -1,0 +1,129 @@
+*version 9.1 1592721440
+u 76
+R? 4
+V? 3
+D? 4
+? 8
+@libraries
+@analysis
+.TRAN 1 0 0 0
++0 0ns
++1 2s
+@targets
+@attributes
+@translators
+a 0 u 13 0 0 0 hln 100 PCBOARDS=PCB
+a 0 u 13 0 0 0 hln 100 PSPICE=PSPICE
+a 0 u 13 0 0 0 hln 100 XILINX=XILINX
+@setup
+unconnectedPins 0
+connectViaLabel 0
+connectViaLocalLabels 0
+NoStim4ExtIFPortsWarnings 1
+AutoGenStim4ExtIFPorts 1
+@index
+pageloc 1 0 2074 
+@status
+n 0 126:03:16:02:15:17;1776284117 e 
+s 2832 126:03:16:02:16:26;1776284186 e 
+*page 1 0 970 720 iA
+@ports
+port 21 GND_EARTH 230 230 h
+@parts
+part 56 D1N4148 200 130 h
+a 0 sp 11 0 15 25 hln 100 PART=D1N4148
+a 0 s 0:13 0 0 0 hln 100 PKGTYPE=DO-35
+a 0 s 0:13 0 0 0 hln 100 GATE=
+a 0 a 0:13 0 0 0 hln 100 PKGREF=D3
+a 0 ap 9 0 15 0 hln 100 REFDES=D3
+part 19 vsin 160 150 h
+a 1 u 0 0 0 0 hcn 100 VOFF=0
+a 1 u 0 0 0 0 hcn 100 VAMPL=10
+a 1 u 0 0 0 0 hcn 100 FREQ=4
+a 1 ap 9 0 20 10 hcn 100 REFDES=V1
+a 0 a 0:13 0 0 0 hln 100 PKGREF=V1
+part 59 r 300 180 v
+a 0 sp 0 0 0 10 hlb 100 PART=r
+a 0 s 0:13 0 0 0 hln 100 PKGTYPE=RC05
+a 0 s 0:13 0 0 0 hln 100 GATE=
+a 0 a 0:13 0 0 0 hln 100 PKGREF=R3
+a 0 ap 9 0 15 0 hln 100 REFDES=R3
+part 73 VDC 300 180 h
+a 1 u 13 0 -11 18 hcn 100 DC=4V
+a 0 sp 0 0 22 37 hln 100 PART=VDC
+a 0 a 0:13 0 0 0 hln 100 PKGREF=V2
+a 1 ap 9 0 24 7 hcn 100 REFDES=V2
+part 1 titleblk 970 720 h
+a 1 s 13 0 350 10 hcn 100 PAGESIZE=A
+a 1 s 13 0 180 60 hcn 100 PAGETITLE=
+a 1 s 13 0 300 95 hrn 100 PAGENO=1
+a 1 s 13 0 340 95 hrn 100 PAGECOUNT=1
+part 74 nodeMarker 300 130 h
+a 0 s 0 0 0 0 hln 100 PROBEVAR=
+a 0 a 0 0 4 22 hlb 100 LABEL=6
+a 0 sp 0 0 0 0 hln 100 COLOR=PINK
+part 75 nodeMarker 300 220 h
+a 0 s 0 0 0 0 hln 100 PROBEVAR=
+a 0 a 0 0 4 22 hlb 100 LABEL=7
+a 0 sp 0 0 0 0 hln 100 COLOR=LIGHTGREEN
+@conn
+w 15
+a 0 up 0:33 0 0 0 hln 100 V=
+s 160 130 160 150 14
+s 160 130 200 130 54
+a 0 up 33 0 180 129 hct 100 V=
+w 11
+a 0 up 0:33 0 0 0 hln 100 V=
+s 300 130 300 140 31
+s 230 130 300 130 57
+a 0 up 33 0 280 129 hct 100 V=
+s 300 140 300 150 60
+w 3
+s 300 220 230 220 8
+a 0 up 33 0 195 219 hct 100 V=
+s 160 190 160 220 2
+s 230 220 160 220 72
+s 230 220 230 230 61
+@junction
+j 200 130
++ p 56 1
++ w 15
+j 230 130
++ p 56 2
++ w 11
+j 300 140
++ p 59 2
++ w 11
+j 230 230
++ s 21
++ w 3
+j 230 220
++ w 3
++ w 3
+j 300 180
++ p 73 +
++ p 59 1
+j 300 220
++ p 73 -
++ w 3
+j 160 150
++ p 19 +
++ w 15
+j 160 190
++ p 19 -
++ w 3
+j 300 130
++ p 74 pin1
++ w 11
+j 300 220
++ p 75 pin1
++ p 73 -
+j 300 220
++ p 75 pin1
++ w 3
+@attributes
+a 0 s 0:13 0 0 0 hln 100 PAGETITLE=
+a 0 s 0:13 0 0 0 hln 100 PAGENO=1
+a 0 s 0:13 0 0 0 hln 100 PAGESIZE=A
+a 0 s 0:13 0 0 0 hln 100 PAGECOUNT=1
+@graphics

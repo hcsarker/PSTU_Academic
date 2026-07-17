@@ -1,0 +1,24 @@
+* C:\Users\hrido\OneDrive\Desktop\EEE\highpassfilter.sch
+
+* Schematics Version 9.1 - Web Update 1
+* Thu Jun 11 02:43:02 2026
+
+
+
+** Analysis setup **
+.ac DEC 101 10 100K
+.tran 0ns 1000ns
+.OP 
+
+
+* From [PSPICE NETLIST] section of pspiceev.ini:
+.lib "nom.lib"
+
+.INC "highpassfilter.net"
+.INC "highpassfilter.als"
+
+
+.probe
+
+
+.END

@@ -1,0 +1,150 @@
+
+**** 06/11/26 13:06:56 *********** Evaluation PSpice (Nov 1999) **************
+
+ * C:\Users\hrido\OneDrive\Desktop\EEE\opamp-integrator.sch
+
+
+ ****     CIRCUIT DESCRIPTION
+
+
+******************************************************************************
+
+
+
+
+* Schematics Version 9.1 - Web Update 1
+* Thu Apr 16 11:02:54 2026
+
+
+
+** Analysis setup **
+.tran 0ns 2.5s
+.OP 
+
+
+* From [PSPICE NETLIST] section of pspiceev.ini:
+.lib "nom.lib"
+
+.INC "opamp-integrator.net"
+
+**** INCLUDING opamp-integrator.net ****
+* Schematics Netlist *
+
+
+
+C_C1         $N_0001 $N_0002  1n  
+E_U1         $N_0002 0 VALUE {LIMIT(V(0,$N_0001)*1E6,-15V,+15V)}
+R_R1         $N_0003 $N_0001  1k  
+V_V1         0 $N_0003  
++SIN 0 10 4 0 0 0
+R_R2         $N_0001 $N_0002  1k  
+
+**** RESUMING opamp-integrator.cir ****
+.INC "opamp-integrator.als"
+
+
+
+**** INCLUDING opamp-integrator.als ****
+* Schematics Aliases *
+
+.ALIASES
+C_C1            C1(1=$N_0001 2=$N_0002 )
+E_U1            U1(OUT=$N_0002 +=0 -=$N_0001 )
+R_R1            R1(1=$N_0003 2=$N_0001 )
+V_V1            V1(+=0 -=$N_0003 )
+R_R2            R2(1=$N_0001 2=$N_0002 )
+.ENDALIASES
+
+
+**** RESUMING opamp-integrator.cir ****
+.probe
+
+
+.END
+
+**** 06/11/26 13:06:56 *********** Evaluation PSpice (Nov 1999) **************
+
+ * C:\Users\hrido\OneDrive\Desktop\EEE\opamp-integrator.sch
+
+
+ ****     SMALL SIGNAL BIAS SOLUTION       TEMPERATURE =   27.000 DEG C
+
+
+******************************************************************************
+
+
+
+ NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
+
+
+($N_0001)    0.0000                   ($N_0002)    0.0000                       
+
+($N_0003)    0.0000                   
+
+
+
+
+    VOLTAGE SOURCE CURRENTS
+    NAME         CURRENT
+
+    V_V1         0.000E+00
+
+    TOTAL POWER DISSIPATION   0.00E+00  WATTS
+
+
+**** 06/11/26 13:06:56 *********** Evaluation PSpice (Nov 1999) **************
+
+ * C:\Users\hrido\OneDrive\Desktop\EEE\opamp-integrator.sch
+
+
+ ****     OPERATING POINT INFORMATION      TEMPERATURE =   27.000 DEG C
+
+
+******************************************************************************
+
+
+
+
+
+
+**** VOLTAGE-CONTROLLED VOLTAGE SOURCES
+
+
+NAME         E_U1      
+V-SOURCE     0.000E+00
+I-SOURCE     0.000E+00
+**** 06/11/26 13:06:56 *********** Evaluation PSpice (Nov 1999) **************
+
+ * C:\Users\hrido\OneDrive\Desktop\EEE\opamp-integrator.sch
+
+
+ ****     INITIAL TRANSIENT SOLUTION       TEMPERATURE =   27.000 DEG C
+
+
+******************************************************************************
+
+
+
+ NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
+
+
+($N_0001)    0.0000                   ($N_0002)    0.0000                       
+
+($N_0003)    0.0000                   
+
+
+
+
+    VOLTAGE SOURCE CURRENTS
+    NAME         CURRENT
+
+    V_V1         0.000E+00
+
+    TOTAL POWER DISSIPATION   0.00E+00  WATTS
+
+
+
+          JOB CONCLUDED
+
+          TOTAL JOB TIME             .03
+

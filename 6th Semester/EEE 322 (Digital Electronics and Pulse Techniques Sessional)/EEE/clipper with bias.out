@@ -1,0 +1,180 @@
+
+**** 04/16/26 02:16:26 *********** Evaluation PSpice (Nov 1999) **************
+
+ * C:\Users\hrido\OneDrive\Desktop\EEE\clipper with bias.sch
+
+
+ ****     CIRCUIT DESCRIPTION
+
+
+******************************************************************************
+
+
+
+
+* Schematics Version 9.1 - Web Update 1
+* Thu Apr 16 02:15:17 2026
+
+
+
+** Analysis setup **
+.tran 0ns 2s
+.OP 
+
+
+* From [PSPICE NETLIST] section of pspiceev.ini:
+.lib "nom.lib"
+
+.INC "clipper with bias.net"
+
+**** INCLUDING "clipper with bias.net" ****
+* Schematics Netlist *
+
+
+
+D_D3         $N_0001 $N_0002 D1N4148 
+V_V1         $N_0001 0  
++SIN 0 10 4 0 0 0
+R_R3         $N_0003 $N_0002  1k  
+V_V2         $N_0003 0 4V
+
+**** RESUMING "clipper with bias.cir" ****
+.INC "clipper with bias.als"
+
+
+
+**** INCLUDING "clipper with bias.als" ****
+* Schematics Aliases *
+
+.ALIASES
+D_D3            D3(1=$N_0001 2=$N_0002 )
+V_V1            V1(+=$N_0001 -=0 )
+R_R3            R3(1=$N_0003 2=$N_0002 )
+V_V2            V2(+=$N_0003 -=0 )
+.ENDALIASES
+
+
+**** RESUMING "clipper with bias.cir" ****
+.probe
+
+
+.END
+
+**** 04/16/26 02:16:26 *********** Evaluation PSpice (Nov 1999) **************
+
+ * C:\Users\hrido\OneDrive\Desktop\EEE\clipper with bias.sch
+
+
+ ****     Diode MODEL PARAMETERS
+
+
+******************************************************************************
+
+
+
+
+               D1N4148         
+          IS    2.682000E-09 
+           N    1.836        
+         ISR    1.565000E-09 
+         IKF     .04417      
+          BV  100            
+         IBV  100.000000E-06 
+          RS     .5664       
+          TT   11.540000E-09 
+         CJO    4.000000E-12 
+          VJ     .5          
+           M     .3333       
+
+
+**** 04/16/26 02:16:26 *********** Evaluation PSpice (Nov 1999) **************
+
+ * C:\Users\hrido\OneDrive\Desktop\EEE\clipper with bias.sch
+
+
+ ****     SMALL SIGNAL BIAS SOLUTION       TEMPERATURE =   27.000 DEG C
+
+
+******************************************************************************
+
+
+
+ NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
+
+
+($N_0001)    0.0000                   ($N_0002)    4.0000                       
+
+($N_0003)    4.0000                   
+
+
+
+
+    VOLTAGE SOURCE CURRENTS
+    NAME         CURRENT
+
+    V_V1         5.937E-09
+    V_V2        -5.937E-09
+
+    TOTAL POWER DISSIPATION   2.37E-08  WATTS
+
+
+**** 04/16/26 02:16:26 *********** Evaluation PSpice (Nov 1999) **************
+
+ * C:\Users\hrido\OneDrive\Desktop\EEE\clipper with bias.sch
+
+
+ ****     OPERATING POINT INFORMATION      TEMPERATURE =   27.000 DEG C
+
+
+******************************************************************************
+
+
+
+
+
+
+**** DIODES
+
+
+NAME         D_D3      
+MODEL        D1N4148   
+ID          -5.94E-09 
+VD          -4.00E+00 
+REQ          8.30E+09 
+CAP          1.92E-12 
+**** 04/16/26 02:16:26 *********** Evaluation PSpice (Nov 1999) **************
+
+ * C:\Users\hrido\OneDrive\Desktop\EEE\clipper with bias.sch
+
+
+ ****     INITIAL TRANSIENT SOLUTION       TEMPERATURE =   27.000 DEG C
+
+
+******************************************************************************
+
+
+
+ NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
+
+
+($N_0001)    0.0000                   ($N_0002)    4.0000                       
+
+($N_0003)    4.0000                   
+
+
+
+
+    VOLTAGE SOURCE CURRENTS
+    NAME         CURRENT
+
+    V_V1         5.937E-09
+    V_V2        -5.937E-09
+
+    TOTAL POWER DISSIPATION   2.37E-08  WATTS
+
+
+
+          JOB CONCLUDED
+
+          TOTAL JOB TIME             .02
+
